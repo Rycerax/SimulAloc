@@ -86,17 +86,3 @@ struct SimulAloc{
     }
   }
 };
-
-int main(){
-  // SimulAloc al;
-  // cout << al.inicializar(10, 50) << '\n';
-  // cout << al.alocar(15) << '\n';
-  // cout << al.alocar(20) << '\n';
-  // cout << al.alocar(30) << '\n';
-  // cout << al.desalocar(45, 15) << '\n';
-  // cout << al.alocar(5) << '\n';
-  // for(auto it = al.prim; it != nullptr; it = it->prox){
-  //   cout << it->ini << ' ' << it->tam << ' ' << (it->prox != nullptr ? "->" : "nullptr") << '\n'; 
-  // }
-  // al.terminar();
-}
