@@ -1,12 +1,10 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
 struct SimulAloc{
-  struct Noh{int ini, tam; Noh *prox;};
+  struct Noh{int ini; int tam; Noh *prox;};
   Noh *prim = nullptr;
 
   bool inicializar(int ini, int tam){
+    if(prim != nullptr)
+      return 1;
     prim = new Noh{ini, tam, nullptr};
     if(!prim)
       return 1;
@@ -14,6 +12,8 @@ struct SimulAloc{
   }
 
   int alocar(int tam){
+    if(prim == nullptr)
+      return -1;
     int addr = -1;
     Noh *tmp;
     if(prim->tam >= tam){
@@ -31,8 +31,9 @@ struct SimulAloc{
         addr = it->prox->ini + it->prox->tam - tam;
         it->prox->tam -= tam;
         if(!(it->prox->tam)){
-          it->prox = it->prox->prox;
-          delete it->prox;
+          tmp = it->prox;
+          it->prox = tmp->prox;
+          delete tmp;
         }
         return addr;
       }
@@ -41,7 +42,21 @@ struct SimulAloc{
   }
 
   bool desalocar(int ini, int tam){
+    if(prim == nullptr){
+      prim = new Noh{ini, tam, nullptr};
+      return 0;
+    }
     Noh *tmp, *it;
+    if(ini + tam < prim->ini){
+      tmp = new Noh{ini, tam, prim};
+      prim = tmp;
+      return 0;
+    }
+    if(ini + tam == prim->ini){
+      prim->ini = ini;
+      prim->tam += tam;
+      return 0;
+    }
     for(it = prim; it->prox != nullptr; it = it->prox){
       if(it->ini + it->tam == ini && ini + tam == it->prox->ini){
         tmp = it->prox;
