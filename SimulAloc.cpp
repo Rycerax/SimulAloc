@@ -19,7 +19,7 @@ struct SimulAloc{
     if(prim->tam >= tam){
       addr = prim->ini + prim->tam - tam;
       prim->tam -= tam;
-      if(!(prim->tam)){
+      if(prim->tam == 0){
         tmp = prim;
         prim = prim->prox;
         delete tmp;
@@ -30,7 +30,7 @@ struct SimulAloc{
       if(it->prox->tam >= tam){
         addr = it->prox->ini + it->prox->tam - tam;
         it->prox->tam -= tam;
-        if(!(it->prox->tam)){
+        if(it->prox->tam == 0){
           tmp = it->prox;
           it->prox = tmp->prox;
           delete tmp;
